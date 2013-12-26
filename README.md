@@ -1,4 +1,4 @@
 lm_front
 ========
 
-frontend repository for liquidibles
+frontend repository for lm
