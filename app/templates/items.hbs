@@ -1,0 +1,14 @@
+My Items
+<table class="table-hovered">
+	<tr>
+		<th>Serial</th>
+		<th>Name</th>
+	</tr>
+	{{#each item in model}}
+		<tr>
+			<td>{{item.id}}</td>
+			<td>{{#linkTo 'item' item}}{{item.name}}{{/linkTo}}</td>
+		</tr>
+	{{/each}}
+</table>
+{{#linkTo 'index'}}Home{{/linkTo}}
