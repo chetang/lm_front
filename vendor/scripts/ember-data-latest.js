@@ -6178,28 +6178,47 @@ DS.JSONTransforms = {
     }
   },
 
-  // array: {
-  //   serialize: function(serialized){
-  //     if (Em.typeOf(serialized) == 'array'){
-  //       return serialized         
-  //     }else{
-  //       return []
-  //     } 
-  //   },
+  array: {
+    serialize: function(serialized){
+      if (Em.typeOf(serialized) == 'array'){
+        return serialized         
+      }else{
+        return []
+      } 
+    },
 
-  //   deserialize: function(externalData) {
-  //     switch (Em.typeOf(externalData)) {
-  //       case 'array':
-  //         return externalData;
-  //       case 'string':
-  //         return externalData.split(',').map(function(item) {
-  //           return jQuery.trim(item);
-  //         });
-  //       default:
-  //         return [];
-  //     }
-  //   }
-  // },
+    deserialize: function(externalData) {
+      switch (Em.typeOf(externalData)) {
+        case 'array':
+          return externalData;
+        case 'string':
+          return externalData.split(',').map(function(item) {
+            return jQuery.trim(item);
+          });
+        default:
+          return [];
+      }
+    }
+  },
+
+  hash: {
+    serialize: function(serialized){
+      if (Em.typeOf(serialized) == 'object'){
+        return serialized         
+      }else{
+        return {}
+      } 
+    },
+
+    deserialize: function(externalData) {
+      switch (Em.typeOf(externalData)) {
+        case 'object':
+          return externalData;
+        default:
+          return {};
+      }
+    }
+  },
 
   number: {
     deserialize: function(serialized) {
@@ -7776,7 +7795,36 @@ DS.RESTAdapter = DS.Adapter.extend({
 
 })();
 
+function buildHierarchy(arry) {
 
+    var roots = [], children = {};
+
+    // find the top level nodes and hash the children based on parent
+    for (var i = 0, len = arry.length; i < len; ++i) {
+        var item = arry[i],
+            p = item.get('parent_id'), name = item.get('prop_name'),
+            target = !p ? roots : (children[p] || (children[p] = []));
+
+        target.push({ attr_id: item.get('id') ,data : name, attr :  { "id" : item.get('id') }});
+    }
+
+    // function to recursively build the tree
+    var findChildren = function(parent) {
+        if (children[parent.attr_id]) {
+            parent.children = children[parent.attr_id];
+            for (var i = 0, len = parent.children.length; i < len; ++i) {
+                findChildren(parent.children[i]);
+            }
+        }
+    };
+
+    // enumerate through to handle the case where there are multiple roots
+    for (var i = 0, len = roots.length; i < len; ++i) {
+        findChildren(roots[i]);
+    }
+
+    return {"data":roots};
+}
 
 (function() {
 //Copyright (C) 2011 by Living Social, Inc.

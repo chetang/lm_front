@@ -11,3 +11,11 @@ Liquidibles.ItemView = Ember.View.extend
 
 	willDestroyElement:->
 		console.log 'Item view destroyed'		
+
+Liquidibles.ItemTypesView = Ember.View.extend
+	didInsertElement:->
+		console.log 'ItemTypes view rendered'
+
+	willDestroyElement:->
+		console.log 'ItemTypes view destroyed'		
+		

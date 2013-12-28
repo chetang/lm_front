@@ -24,6 +24,7 @@ exports.config =
 					'vendor/scripts/bootstrap.js',
 					'vendor/scripts/bootstrap-datepicker.js',
 					'vendor/scripts/bootstrap-timepicker.js',
+					'jquery.jstree.js'
 				]
 
 		stylesheets:
@@ -33,6 +34,7 @@ exports.config =
 				before:[
 					'vendor/styles/datepicker.css'
 					'vendor/styles/timepicker.css'
+					'vendor/styles/style.css'
 				]
 
 		templates:

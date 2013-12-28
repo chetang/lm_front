@@ -5,3 +5,4 @@ Liquidibles.Router.map ->
 	@resource "items"
 	@resource 'item',
 		path: '/items/:item_id'
+	@resource "item_types"

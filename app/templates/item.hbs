@@ -1,7 +1,15 @@
 <h1>My {{content.name}}</h1>
+	<br/>
 {{content.self_and_ancestors}}
-{{content.instance_attributes}}
-{{content.name}}
+	<br/>
+	<br/>
+	<br/>
+{{#each item in item_attr_array}}
+	{{i}}{{item}}
+	<br/>
+{{/each}}
+	<br/>
 
 {{#linkTo 'index'}}Home{{/linkTo}}
 {{#linkTo 'items'}}Items{{/linkTo}}
+{{#linkTo 'item_types'}}Item Types{{/linkTo}}

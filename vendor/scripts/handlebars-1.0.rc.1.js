@@ -81,6 +81,20 @@ Handlebars.registerHelper('each', function(context, options) {
   return ret;
 });
 
+Handlebars.registerHelper('iter', function(context, options) {
+  var fn = options.fn, inverse = options.inverse;
+  var ret = "";
+
+  if(context && context.length > 0) {
+    for(var i=0, j=context.length; i<j; i++) {
+      ret = ret + fn($.extend({}, context[i], { i: i, iPlus1: i + 1 }));
+    }
+  } else {
+    ret = inverse(this);
+  }
+  return ret;
+});
+
 Handlebars.registerHelper('if', function(context, options) {
   var type = toString.call(context);
   if(type === functionType) { context = context.call(this); }
@@ -106,6 +120,15 @@ Handlebars.registerHelper('with', function(context, options) {
 
 Handlebars.registerHelper('log', function(context) {
   Handlebars.log(context);
+});
+
+Handlebars.registerHelper('eachProperty', function(context, options) {
+    var ret = "";
+    for(var prop in context)
+    {
+        ret = ret + options.fn({property:prop,value:context[prop]});
+    }
+    return ret;
 });
 
 }(this.Handlebars));
