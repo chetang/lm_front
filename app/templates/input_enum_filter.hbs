@@ -1,0 +1,31 @@
+<div class="row-fluid">
+  <div class="span3" style="text-align:right">
+    {{view.content.prop_name}}
+  </div>
+  <div class="span9">
+    <div class="row-fluid">
+      <div class="span6">
+        <div class="control-group">
+          <div class="controls">
+          	<select class="ember-select col-xs-3">
+          		{{#each view.content.allowed_values}}
+          			<option {{bindAttr value=this}}>{{this}}</option>		
+          		{{/each}}
+			</select>
+          </div>
+        </div>
+      </div>
+      <div class="span6">
+        <div class="control-group">
+          <div class="controls">
+          	<select class="ember-select col-xs-3">
+          		{{#each view.content.allowed_values}}
+          			<option {{bindAttr value=this}}>{{this}}</option>		
+          		{{/each}}
+			</select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
