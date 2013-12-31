@@ -18,12 +18,12 @@ exports.config =
 			order:
 				before: [
 					'vendor/scripts/jquery-1.9.0.min.js',
+					'vendor/scripts/jquery-ui.js',
 					'vendor/scripts/handlebars-1.0.rc.1.js',
 					'vendor/scripts/ember-latest.js',
 					'vendor/scripts/ember-data-latest.js',
 					'vendor/scripts/bootstrap.js',
-					'vendor/scripts/bootstrap-datepicker.js',
-					'vendor/scripts/bootstrap-timepicker.js',
+					'vendor/scripts/bootstrap-slider.js',
 					'jquery.jstree.js'
 				]
 
@@ -32,8 +32,7 @@ exports.config =
 			joinTo: 'stylesheets/app.css'
 			order:
 				before:[
-					'vendor/styles/datepicker.css'
-					'vendor/styles/timepicker.css'
+					'vendor/styles/slider.css'
 					'vendor/styles/style.css'
 				]
 

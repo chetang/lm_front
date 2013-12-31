@@ -1,15 +1,26 @@
-<h1>My {{content.name}}</h1>
+<div style="margin-left:50px;">
+	<h1>My {{content.name}}</h1>
 	<br/>
-{{content.self_and_ancestors}}
+	{{content.self_and_ancestors}}
 	<br/>
 	<br/>
 	<br/>
-{{#each item in item_attr_array}}
-	{{i}}{{item}}
+	<div class="pull-left text-right">
+		{{#each item in key_arrays}}
+			<div>{{item}}</div>
+		{{/each}}
+	</div>
+	<div class="text-left" style="float:left;margin-left:10px;">
+		{{#each item in value_arrays}}
+			<div>{{item}}</div>
+		{{/each}}
+	</div>
 	<br/>
-{{/each}}
 	<br/>
 
-{{#linkTo 'index'}}Home{{/linkTo}}
-{{#linkTo 'items'}}Items{{/linkTo}}
-{{#linkTo 'item_types'}}Item Types{{/linkTo}}
+	<div style="clear:both;">
+		{{#linkTo 'index'}}Home{{/linkTo}} |
+		{{#linkTo 'items'}}Items{{/linkTo}} |
+		{{#linkTo 'item_types'}}Item Types{{/linkTo}}
+	</div>
+</div>

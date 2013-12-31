@@ -23,6 +23,7 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 	templateName: 'input_enum_filter'
 	didInsertElement:->
 		console.log 'InputEnumFilterView view rendered'
+		jQuery(".slider_for_enum").slider()
 
 	willDestroyElement:->
 		console.log 'InputEnumFilterView view destroyed'		
@@ -33,8 +34,10 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 
 Liquidibles.InputFilterRangeSliderView = Ember.View.extend
 	templateName: 'input_filter_range_slider'
+	content: null
 	didInsertElement:->
 		console.log 'InputFilterRangeSliderView view rendered'
+		jQuery(".slider_for_enum").slider()
 
 	willDestroyElement:->
 		console.log 'InputFilterRangeSliderView view destroyed'		
@@ -47,6 +50,7 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 	templateName: 'input_filter_range_text'
 	didInsertElement:->
 		console.log 'InputFilterRangeTextView view rendered'
+		jQuery(".slider_for_enum").slider()
 
 	willDestroyElement:->
 		console.log 'InputFilterRangeTextView view destroyed'		

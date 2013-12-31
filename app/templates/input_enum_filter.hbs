@@ -1,8 +1,11 @@
 <div class="row-fluid">
-  <div class="span3" style="text-align:right">
+  <div class="span3 pull-left" style="text-align:right">
     {{view.content.prop_name}}
   </div>
-  <div class="span9">
+  <div class="span9 pull-right">
+  	<div class="row-fluid">
+  		<div class="span6" {{bindAttr id=view.content.prop_name}}></div>
+  	</div>
     <div class="row-fluid">
       <div class="span6">
         <div class="control-group">

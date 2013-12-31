@@ -1,8 +1,13 @@
 <div class="row-fluid">
-  <div class="span3" style="text-align:right">
+  <div class="span3 pull-left" style="text-align:right">
     {{view.content.prop_name}}
   </div>
-  <div class="span9">
+  <div class="span9 pull-right">
+  	<div class="row-fluid">
+      {{view.content.min}}
+      <input id="ex2" type="text" class="span6 slider_for_enum" value="" style="display:none;" {{bindAttr data-slider-min=view.content.min data-slider-max=view.content.max }}/>
+      {{view.content.max}}
+  	</div>
     <div class="row-fluid">
       <div class="span6">
       	{{view Ember.TextField classBinding="input-small" idBinding='view.content.min'  valueBinding="view.content.min"}} 

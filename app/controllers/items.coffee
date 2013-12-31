@@ -3,15 +3,22 @@ Liquidibles = require 'app'
 Liquidibles.ItemsController = Ember.ArrayController.extend(soundVolume: 1)
 Liquidibles.ItemController = Ember.ObjectController.extend(
   content: null
-  item_attr_array: (->
+  key_arrays: (->
     attr_hash = @content.get("instance_attributes")
-    attr_arrays = []
+    key_arrays = []
+    for item_attr of attr_hash
+      key_arrays.push item_attr.slice(item_attr.indexOf('.')+1).toUpperCase()
+    return key_arrays
+  ).property("content.isLoaded")
+
+  value_arrays: (->
+    attr_hash = @content.get("instance_attributes")
+    value_arrays = []
     regex = /[0-9]{4}/
     for item_attr of attr_hash
       item_attr_value = attr_hash[item_attr]
-      item_attr_value = item_attr_value.slice(4)  if typeof (item_attr_value) is "string" and item_attr_value.match(regex)
-      attr_array = [item_attr, item_attr_value]
-      attr_arrays.push attr_array
-    return attr_arrays
+      item_attr_value = @controllerFor('index').slicedValues(item_attr_value,regex)
+      value_arrays.push item_attr_value
+    return value_arrays
   ).property("content.isLoaded")
 )
