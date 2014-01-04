@@ -1,18 +1,13 @@
 <div style="margin-left:50px;">
-	<h1>My {{content.name}}</h1>
-	<br/>
-	{{content.self_and_ancestors}}
-	<br/>
-	<br/>
-	<br/>
+	<h2>Name: {{content.name}}</h2>
 	<div class="pull-left text-right">
 		{{#each item in key_arrays}}
-			<div>{{item}}</div>
+			<div style="height:25px;"><strong>{{item}}</strong>: </div>
 		{{/each}}
 	</div>
 	<div class="text-left" style="float:left;margin-left:10px;">
 		{{#each item in value_arrays}}
-			<div>{{item}}</div>
+			<div style="height:25px;">{{item}}</div>
 		{{/each}}
 	</div>
 	<br/>
@@ -20,7 +15,7 @@
 
 	<div style="clear:both;">
 		{{#linkTo 'index'}}Home{{/linkTo}} |
-		{{#linkTo 'items'}}Items{{/linkTo}} |
+		{{#linkTo 'items' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> See All{{/linkTo}} |
 		{{#linkTo 'item_types'}}Item Types{{/linkTo}}
 	</div>
 </div>

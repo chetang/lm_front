@@ -1,20 +1,41 @@
 <div class="row-fluid">
   <div class="span3 pull-left" style="text-align:right">
-    {{view.content.prop_name}}
+    {{view.propName}}
   </div>
   <div class="span9 pull-right">
-  	<div class="row-fluid">
-      {{view.content.min}}
-      <input id="ex2" type="text" class="span6 slider_for_enum" value="" style="display:none;" {{bindAttr data-slider-min=view.content.min data-slider-max=view.content.max }}/>
-      {{view.content.max}}
-  	</div>
     <div class="row-fluid">
+    {{#if view.showDropDown}}
       <div class="span6">
-      	{{view Ember.TextField classBinding="input-small" idBinding='view.content.min'  valueBinding="view.content.min"}} 
+        <div class="control-group">
+          <div class="controls">
+            {{view Ember.Select class="col-xs-3 item_filter from" contentBinding=view.allowedValues valueBinding=view.min}}
+          </div>
+        </div>
       </div>
       <div class="span6">
-      	{{view Ember.TextField classBinding="input-small" idBinding='view.content.max'  valueBinding="view.content.max"}} 
+        <div class="control-group">
+          <div class="controls">
+            {{view Ember.Select class="col-xs-3 item_filter to" contentBinding=view.allowedValues valueBinding=view.max}}
+          </div>
+        </div>
       </div>
+    {{else}}
+      <div class="span6">
+        <div class="control-group">
+          <div class="controls">
+            {{view Ember.TextField type="text" valueBinding=view.min class="col-xs-3 item_filter from"}}
+          </div>
+        </div>
+      </div>
+      <div class="span6">
+        <div class="control-group">
+          <div class="controls">
+            {{view Ember.TextField type="text" valueBinding=view.max class="col-xs-3 item_filter to" style="float:left;"}}
+          </div>
+        </div>
+      </div>
+
+    {{/if}}
     </div>
   </div>
 </div>

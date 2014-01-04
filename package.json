@@ -22,7 +22,7 @@
     "bless-brunch": ">= 1.0.0",
     "sass-brunch": "> 1.0 ",
     "auto-reload-brunch": ">= 1.0 < 1.6",
-    "ember-handlebars-brunch": "git://github.com/li8/ember-handlebars-brunch"
+    "ember-handlebars-brunch": "git://github.com/icholy/ember-handlebars-brunch.git"
   },
   "devDependencies": {
     "mocha": "0.14.0",

@@ -18,13 +18,16 @@ exports.config =
 			order:
 				before: [
 					'vendor/scripts/jquery-1.9.0.min.js',
-					'vendor/scripts/jquery-ui.js',
-					'vendor/scripts/handlebars-1.0.rc.1.js',
+					'vendor/scripts/chosen.jquery.js',
+					'vendor/scripts/chosen.photo.js',
+					'vendor/scripts/handlebars-1.0.rc.2.js',
 					'vendor/scripts/ember-latest.js',
 					'vendor/scripts/ember-data-latest.js',
 					'vendor/scripts/bootstrap.js',
-					'vendor/scripts/bootstrap-slider.js',
-					'jquery.jstree.js'
+					'vendor/scripts/jquery.ui.core.js',
+					'vendor/scripts/jquery.ui.widget.js',
+					'vendor/scripts/jquery.ui.mouse.js',
+					'vendor/scripts/jquery.ui.slider.js'
 				]
 
 		stylesheets:
@@ -32,7 +35,8 @@ exports.config =
 			joinTo: 'stylesheets/app.css'
 			order:
 				before:[
-					'vendor/styles/slider.css'
+					'vendor/styles/jquery-ui.css'
+					'vendor/styles/chosen.css'
 					'vendor/styles/style.css'
 				]
 

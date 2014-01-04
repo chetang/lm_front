@@ -1,14 +1,17 @@
-My Items
-<table class="table-hovered">
+<h2 style="margin-left:50px;">My Items <small> within {{controllers.index.currentItemType}}</small></h2>
+<table class="table table-bordered table-hovered span12">
 	<tr>
 		<th>Serial</th>
 		<th>Name</th>
 	</tr>
-	{{#each item in model}}
+	{{#each item in content}}
 		<tr>
 			<td>{{item.id}}</td>
 			<td>{{#linkTo 'item' item}}{{item.name}}{{/linkTo}}</td>
 		</tr>
 	{{/each}}
 </table>
-{{#linkTo 'index'}}Home{{/linkTo}}
+<div style="clear:both;margin-left:30px;">
+	{{#linkTo 'index' class="btn btn-success"}}<i class="icon-home icon-white"></i> Home{{/linkTo}} 
+	{{#linkTo 'item_types' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> Item Types{{/linkTo}}
+</div>

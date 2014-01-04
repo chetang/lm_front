@@ -7795,7 +7795,7 @@ DS.RESTAdapter = DS.Adapter.extend({
 
 })();
 
-function buildHierarchy(arry) {
+function buildHierarchy(arry,current_item_type) {
 
     var roots = [], children = {};
 
@@ -7804,8 +7804,11 @@ function buildHierarchy(arry) {
         var item = arry[i],
             p = item.get('parent_id'), name = item.get('prop_name'),
             target = !p ? roots : (children[p] || (children[p] = []));
-
-        target.push({ attr_id: item.get('id') ,data : name, attr :  { "id" : item.get('id') }});
+        if(current_item_type == name){
+          target.push({ attr_id: item.get('id') ,data : name, attr :  { "id" : item.get('id') },state:{opened:true}});  
+        }else{
+          target.push({ attr_id: item.get('id') ,data : name, attr :  { "id" : item.get('id') }});
+        }
     }
 
     // function to recursively build the tree

@@ -1,7 +1,36 @@
-<div class="row" style="margin-left:50px;">
-  <div id="demo1" class="col-md-8 pull-left" ></div>
-  {{view Liquidibles.ContainerView elementId="my_container_view"}}
+<div class="row" style="margin-left:30px;">
+  <ol class="breadcrumb">
+	  {{#each ancestor in ancestors}}
+	  	<li class="ancestor_item_type" {{action updateBreadcrumb ancestor.id}} style="cursor:pointer;"> {{ancestor.prop_name}} ></li>
+	  {{/each}}
+  	<li class="active"> {{controllers.index.currentItemType}} </li>
+  	<li>
+  		>
+	  <select id="item_type_children_breadCrumb">
+	  	<option>Select an Item Type</option>
+		  {{#each children in childrens}}
+		  	<option {{bindAttr value=children.id}}>{{children.prop_name}}</option>
+		  {{/each}}
+	  </select>
+  	</li>
+  </ol>
 </div>
-
-{{#linkTo 'index'}}Home{{/linkTo}}
-{{#linkTo 'items'}}Items{{/linkTo}}
+<br/>
+<br/>
+<div>Search String <input class="item_filter_query_string" type="text" /></div>
+<br/>
+<br/>
+{{#each mergedFilterAttrArray}}
+	{{#if variable}}
+		{{#if slider}}
+			{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
+		{{else}}
+			{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+		{{/if}}
+	{{/if}}
+{{/each}}
+<div style="clear:both;margin-left:30px;">
+	<button {{action 'searchItems'}} type='submit'>Search Items</button>
+	{{#linkTo 'index' class="btn btn-success"}}<i class="icon-home icon-white"></i> Home{{/linkTo}} 
+	{{#linkTo 'items' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> Items{{/linkTo}}
+</div>

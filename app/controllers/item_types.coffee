@@ -1,59 +1,67 @@
 Liquidibles = require 'app'
 
 Liquidibles.ItemTypesController = Ember.ArrayController.extend(
+  needs: ['index']
   content: null
-  mergedFilterAttr: {}
+  mergedFilterAttrArray: []
+  item_filter:{'from':{},'to':{},'q':'','within_type':''}
   itemTypeTreeArray: (->
-    if @content && @content.get('isLoaded') 
-      b = buildHierarchy @content.toArray()
-      jQuery("#demo1").jstree(
-        json_data: b
-        plugins: ["themes", "json_data", "ui"]
-      ).bind "select_node.jstree", (event, data) =>
-        selectedItemType = Liquidibles.ItemType.find(data.rslt.obj.attr('id'))
-        @updateFilter(selectedItemType)
-        containerView = Em.View.views['my_container_view']
-        l = containerView.get("childViews").length
-        i = 0
-        while i < l
-          containerView.get("childViews").popObject()
-          i++
-        mergedFilterAttr = @get "mergedFilterAttr"
-        for key of mergedFilterAttr
-          @renderFilter [key,mergedFilterAttr[key]]  if mergedFilterAttr.hasOwnProperty(key)
-        @set "mergedFilterAttr", {}
+    if @content && @content.get('isLoaded')
+      @set "childrens", @content.objectAt(0).get('children')
   ).observes("content.isLoaded")
 
-  updateFilter: (selectedItemType) ->
-    filterAttr = selectedItemType.get('instance_attributes')
-    parent_id = selectedItemType.get('parent_id')
-    mergedFilterAttr = @get "mergedFilterAttr"
-    for key of filterAttr
-      if filterAttr.hasOwnProperty(key) and mergedFilterAttr[key] is undefined
-        mergedFilterAttr[key] = filterAttr[key]
-        @set "mergedFilterAttr", mergedFilterAttr 
-    if parent_id
-      parent_item_type = Liquidibles.ItemType.find(parent_id)
-      @updateFilter(parent_item_type)
+  updateBreadcrumb: (selectedItemType) ->
+    selectedItemType = Liquidibles.ItemType.find(selectedItemType)
+    @set "controllers.index.currentItemType", selectedItemType.get('prop_name')
+    mergedFilterAttrArray = []
+    mergedFilterAttrObject = {}
+    @set "mergedFilterAttrArray", @updateFilter(selectedItemType,mergedFilterAttrArray,mergedFilterAttrObject)
+    parent_tree = []
+    @set "ancestors", @buildParentTree(selectedItemType,parent_tree)
+    @set "childrens", selectedItemType.get('children')
+    jQuery(".ancestor_item_type").click (eventObject) =>
+      if eventObject.target.selectedOptions[0].getAttribute('id')
+          @controller.updateFilter(eventObject)
 
-  renderFilter:(attr) ->
-    containerView = Em.View.views['my_container_view']
-    if attr[1]['variable']
-      if attr[1]['slider']
-        childView = Liquidibles.InputFilterRangeTextView.create(
-          content: attr[1]
-        )
-      else
-        if attr[1]['allowed_values'] && attr[1]['allowed_values'].length > 0
-          childView = Liquidibles.InputEnumFilterView.create(
-            content: attr[1]
-          )
-        else
-          childView = Liquidibles.InputFilterRangeTextView.create(
-            content: attr[1]
-          )
-      containerView.get('childViews').pushObject(childView)
-      @set "mergedFilterAttr", {}
+  updateFilter: (selectedItemType,mergedFilterAttrArray,mergedFilterAttrObject) ->
+    filterAttr = selectedItemType.get('modifiedInstanceAttributes')
+    for key of filterAttr
+      if filterAttr.hasOwnProperty(key) and mergedFilterAttrObject[key] is undefined
+        mergedFilterAttrArray.pushObject filterAttr[key]
+        mergedFilterAttrObject[key] = filterAttr[key]
+    if selectedItemType.get('parent.id')
+      parent_item_type = Liquidibles.ItemType.find(selectedItemType.get('parent.id'))
+      @updateFilter(parent_item_type,mergedFilterAttrArray,mergedFilterAttrObject)
+    return mergedFilterAttrArray
+
+  buildParentTree: (item_type, parent_tree) ->
+    if item_type.get('parent')
+      ancestor_hash = {}
+      ancestor_hash['prop_name'] = item_type.get('parent.prop_name')
+      ancestor_hash['id'] = item_type.get('parent.id')
+      parent_tree.pushObject ancestor_hash
+      @buildParentTree(item_type.get('parent'),parent_tree)
+    else
+      return parent_tree.reverse() 
+
+  searchItems: (params) ->
+    jQuery(jQuery(jQuery('.from')[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
+    item_filter = @get 'item_filter'
+    a = jQuery(".from").toArray()
+    a.forEach (element) ->
+      from_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
+      item_filter["from"][from_filter_key.trim()] = jQuery(element).val()
+
+    b = jQuery(".to").toArray()
+    b.forEach (element) ->
+      from_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
+      item_filter["to"][from_filter_key.trim()] = jQuery(element).val()
+    item_filter['within_type'] = @controllerFor('index').get('currentItemType')
+    item_filter['q'] = jQuery('.item_filter_query_string').val()
+    @controllerFor('items').set('content',Liquidibles.store.findQuery(Liquidibles.Item,{'item_filter':item_filter}))
+    @transitionTo('items')
 
 )
-Liquidibles.ItemTypeController = Ember.ObjectController.extend(soundVolume: 1)
+Liquidibles.ItemTypeController = Ember.ObjectController.extend(
+  needs: ['index']
+)
