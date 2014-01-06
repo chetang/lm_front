@@ -2,15 +2,9 @@ Liquidibles.ItemsView = Ember.View.extend
 	didInsertElement:->
 		console.log 'Items view rendered'
 
-	willDestroyElement:->
-		console.log 'Items view destroyed'		
-		
 Liquidibles.ItemView = Ember.View.extend
 	didInsertElement:->
 		console.log 'Item view rendered'
-
-	willDestroyElement:->
-		console.log 'Item view destroyed'		
 
 Liquidibles.ItemTypesView = Ember.View.extend
 	didInsertElement:->
@@ -18,15 +12,29 @@ Liquidibles.ItemTypesView = Ember.View.extend
 		jQuery("#item_type_children_breadCrumb").change (eventObject) =>
 			if eventObject.target.selectedOptions[0].getAttribute('value')
 	  			@controller.updateBreadcrumb(eventObject.target.selectedOptions[0].getAttribute('value'))
-
-
-	willDestroyElement:->
-		console.log 'ItemTypes view destroyed'		
 		
 Liquidibles.InputEnumFilterView = Ember.View.extend
 	templateName: 'input_enum_filter'
 	didInsertElement:->
-		console.log 'InputEnumFilterView view rendered'
+		jQuery('.from').change ->
+			console.log('hi')
+			upper_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[1]
+			updated_lower_value = parseInt(event.target.value)
+			if upper_value >= updated_lower_value
+				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 0, updated_lower_value)	
+			else
+				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 0, upper_value)
+				jQuery(event.target).val(jQuery(event.target.parentElement.parentElement.parentElement.parentElement).find('.to').val())			
+		jQuery('.to').change ->
+			console.log('hi')
+			lower_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[0]
+			updated_upper_value = parseInt(event.target.value)
+			if updated_upper_value >= lower_value
+				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 1, updated_upper_value)	
+			else
+				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 1, lower_value)
+				jQuery(event.target).val(jQuery(event.target.parentElement.parentElement.parentElement.parentElement).find('.from').val())			
+
 		jQuery("#"+@get('propNameModified')).slider
 		  range: true
 		  min: @get('lowerBound')
@@ -49,9 +57,6 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 		  		else
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[0]])
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[1]])
-
-	willDestroyElement:->
-		console.log 'InputEnumFilterView view destroyed'		
 
 	# modifiedAllowedValues:(->
 	# 	modifiedAllowedValuesArray = @get('allowedValues')
@@ -101,9 +106,6 @@ Liquidibles.InputFilterRangeSliderView = Ember.View.extend
 	didInsertElement:->
 		console.log 'InputFilterRangeSliderView view rendered'
 
-	willDestroyElement:->
-		console.log 'InputFilterRangeSliderView view destroyed'		
-
 	showDropDown:(->
 		if @get('type') is 'string' and @get('allowedValues')
 			return true
@@ -126,9 +128,6 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 	didInsertElement:->
 		console.log 'InputFilterRangeTextView view rendered'
 	
-	willDestroyElement:->
-		console.log 'InputFilterRangeTextView view destroyed'		
-
 	showDropDown:(->
 		if @get('type') is 'string' and @get('allowedValues')
 			return true
