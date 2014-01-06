@@ -89,6 +89,11 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 			@get('propName').slice(@get('propName').indexOf('.')+1)
 	).property('propName')
 
+	propNameUnderscored:(->
+		if @get('propName')
+			@get('propName').replace('.','_')
+	).property('propName')
+
 
 Liquidibles.InputFilterRangeSliderView = Ember.View.extend
 	templateName: 'input_filter_range_slider'
@@ -110,6 +115,11 @@ Liquidibles.InputFilterRangeSliderView = Ember.View.extend
 		if @get('propName')
 			@get('propName').slice(@get('propName').indexOf('.')+1)
 	).property('propName')
+	propNameUnderscored:(->
+		if @get('propName')
+			@get('propName').replace('.','_')
+	).property('propName')
+
 
 Liquidibles.InputFilterRangeTextView = Ember.View.extend
 	templateName: 'input_filter_range_text'
@@ -130,3 +140,17 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 		if @get('propName')
 			@get('propName').slice(@get('propName').indexOf('.')+1)
 	).property('propName')
+	propNameUnderscored:(->
+		if @get('propName')
+			@get('propName').replace('.','_')
+	).property('propName')
+	# modifiedAllowedValues:(->
+	# 	modifiedAllowedValuesArray = @get('allowedValues')
+	# 	if @get('allowedValues') and @get('allowedValues').length > 0
+	# 		i = 0
+	# 		while i < modifiedAllowedValuesArray.length
+	# 		  modifiedAllowedValuesArray[i] = modifiedAllowedValuesArray[i].slice(4)
+	# 		  i++ 
+	# 	return modifiedAllowedValuesArray		
+	# ).property('allowedValues')
+

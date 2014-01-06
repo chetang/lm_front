@@ -4,7 +4,7 @@
 		<th>Serial</th>
 		<th>Name</th>
 	</tr>
-	{{#each item in content}}
+	{{#each item in model}}
 		<tr>
 			<td>{{item.id}}</td>
 			<td>{{#linkTo 'item' item}}{{item.name}}{{/linkTo}}</td>

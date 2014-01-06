@@ -3,6 +3,13 @@ Liquidibles = require 'app'
 Liquidibles.IndexController = Ember.ObjectController.extend(
 	content: null
 	currentItemType: "all"
+	itemTypeUpdated: false
+	filter_params:{'item_filter':{'from':{},'to':{}},'q':'','within_type':'all'}
+	currentItemTypeObserver:(->
+		currentFilter = @get('filter_params')
+		currentFilter['within_type'] = @get('currentItemType')
+		@set('filter_params',currentFilter)
+	).observes('currentItemType')
 	contentObserver:(->
 		if @content && @content.get('isLoaded')
 			@set "currentItemType", @content.objectAt(0).get('prop_name')

@@ -4,7 +4,7 @@ Liquidibles.ItemTypesController = Ember.ArrayController.extend(
   needs: ['index']
   content: null
   mergedFilterAttrArray: []
-  item_filter:{'from':{},'to':{},'q':'','within_type':''}
+  item_filter:{'from':{},'to':{}}
   itemTypeTreeArray: (->
     if @content && @content.get('isLoaded')
       @set "childrens", @content.objectAt(0).get('children')
@@ -56,10 +56,11 @@ Liquidibles.ItemTypesController = Ember.ArrayController.extend(
     b.forEach (element) ->
       from_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
       item_filter["to"][from_filter_key.trim()] = jQuery(element).val()
-    item_filter['within_type'] = @controllerFor('index').get('currentItemType')
-    item_filter['q'] = jQuery('.item_filter_query_string').val()
-    @controllerFor('items').set('content',Liquidibles.store.findQuery(Liquidibles.Item,{'item_filter':item_filter}))
-    @transitionTo('items')
+    within_type = @controllerFor('index').get('currentItemType')
+    query_string = jQuery('.item_filter_query_string').val()
+    @controllerFor('index').set('filter_params',{'item_filter':item_filter,'within_type':within_type,'q':query_string})
+    @set('item_filter',{'from':{},'to':{}})
+    @transitionToRoute('items')
 
 )
 Liquidibles.ItemTypeController = Ember.ObjectController.extend(

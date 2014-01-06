@@ -1,8 +1,8 @@
 Liquidibles = require 'app'
 
 Liquidibles.ItemsRoute = Ember.Route.extend(model: (params) ->
-	unless @controllerFor('items').get('content')
-  		return Liquidibles.store.findQuery(Liquidibles.Item,{item_index_within_type_prop_name:this.controllerFor('index').currentItemType})
+	filter_params = @controllerFor('index').get('filter_params')
+	return Liquidibles.store.findQuery(Liquidibles.Item,filter_params)
 )
 
 Liquidibles.ItemRoute = Ember.Route.extend(
