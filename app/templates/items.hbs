@@ -1,17 +1,63 @@
-<h2 style="margin-left:50px;">My Items <small> within {{controllers.index.currentItemType}}</small></h2>
+<!-- Item type starts here -->
+<div class="row" style="margin-left:30px;">
+  <ol class="breadcrumb" style='background-color: white;'>
+	  {{#each ancestor in ancestors}}
+	  	<li class="ancestor_item_type" {{action updateBreadcrumb ancestor.id}} style="cursor:pointer;"><strong style='color: #369bd7;'> {{ancestor.prop_name}} </strong><i class="icon-chevron-right"></i></li>
+	  {{/each}}
+  	<li class="active"><strong> {{controllers.index.currentItemType}} </strong></li>
+  	<li>
+  		<i class="icon-chevron-right"></i>
+	  <select id="item_type_children_breadCrumb" style='margin-bottom:0;'>
+	  	<option>Select an Item Type</option>
+		  {{#each children in childrens}}
+		  	<option {{bindAttr value=children.id}}>{{children.prop_name}}</option>
+		  {{/each}}
+	  </select>
+  	</li>
+  </ol>
+</div>
+{{#if mergedFilterAttrArray}}
+<br/>
+<br/>
+{{#each mergedFilterAttrArray}}
+	{{#if variable}}
+		{{#if slider}}
+			{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
+		{{else}}
+			{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+		{{/if}}
+	{{/if}}
+{{/each}}
+<br/>
+<br/>
+{{/if}}
+<div>
+<div style='clear:both;margin-left:50px;float:left;margin-right:10px;margin-bottom: 20px;'><input class="item_filter_query_string" type="text" style="margin-bottom:0;" placeholder='Type your search text'/></div>
+<div style='float:left;'>
+	<button {{action 'searchItems'}} type='submit' class="btn btn-primary"><i class="icon-search icon-white"></i> Search Items</button>
+</div>
+</div>
+<!-- Item type ends here -->
+
+<h2 style="margin-left:50px;clear:both;">My Items <small> within {{controllers.index.currentItemType}}</small></h2>
 <table class="table table-bordered table-hovered span12">
 	<tr>
 		<th>Serial</th>
 		<th>Name</th>
+		{{#each attr in mergedFilterAttrArray}}
+			<th>{{sliceAttr 'attr' 'prop_name'}}</th>
+		{{/each}}
 	</tr>
 	{{#each item in model}}
 		<tr>
 			<td>{{item.id}}</td>
 			<td>{{#linkTo 'item' item}}{{item.name}}{{/linkTo}}</td>
+			{{#each attr in mergedFilterAttrArray}}
+				<td>{{extract 'attr' 'item'}}</td>
+			{{/each}}
 		</tr>
 	{{/each}}
 </table>
 <div style="clear:both;margin-left:30px;">
 	{{#linkTo 'index' class="btn btn-success"}}<i class="icon-home icon-white"></i> Home{{/linkTo}} 
-	{{#linkTo 'item_types' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> Item Types{{/linkTo}}
 </div>

@@ -7,4 +7,12 @@ Liquidibles.Item = DS.Model.extend(
   item_type_id: attr('number')
   item_type_description: attr('string')
   instance_attributes: attr('hash')
+  modified_instance_attributes:(->
+  	obj = @get "instance_attributes"
+  	if obj
+  		for prop of obj
+  			if obj.hasOwnProperty(prop)
+  				prop = prop.replace('.','_')
+  	return obj
+  ).property('instance_attributes')
 )

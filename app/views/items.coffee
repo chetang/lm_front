@@ -1,6 +1,9 @@
 Liquidibles.ItemsView = Ember.View.extend
 	didInsertElement:->
 		console.log 'Items view rendered'
+		jQuery("#item_type_children_breadCrumb").change (eventObject) =>
+			if eventObject.target.selectedOptions[0].getAttribute('value')
+	  			@controller.updateBreadcrumb(eventObject.target.selectedOptions[0].getAttribute('value'))
 
 Liquidibles.ItemView = Ember.View.extend
 	didInsertElement:->
@@ -16,7 +19,7 @@ Liquidibles.ItemTypesView = Ember.View.extend
 Liquidibles.InputEnumFilterView = Ember.View.extend
 	templateName: 'input_enum_filter'
 	didInsertElement:->
-		jQuery('.from').change ->
+		jQuery('.slider_from').change ->
 			console.log('hi')
 			upper_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[1]
 			updated_lower_value = parseInt(event.target.value)
@@ -25,7 +28,7 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 			else
 				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 0, upper_value)
 				jQuery(event.target).val(jQuery(event.target.parentElement.parentElement.parentElement.parentElement).find('.to').val())			
-		jQuery('.to').change ->
+		jQuery('.slider_to').change ->
 			console.log('hi')
 			lower_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[0]
 			updated_upper_value = parseInt(event.target.value)
@@ -58,15 +61,35 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[0]])
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[1]])
 
-	# modifiedAllowedValues:(->
-	# 	modifiedAllowedValuesArray = @get('allowedValues')
-	# 	if @get('allowedValues') and @get('allowedValues').length > 0
-	# 		i = 0
-	# 		while i < modifiedAllowedValuesArray.length
-	# 		  modifiedAllowedValuesArray[i] = modifiedAllowedValuesArray[i].slice(4)
-	# 		  i++ 
-	# 	return modifiedAllowedValuesArray		
-	# ).property('allowedValues')
+	modifiedAllowedValues:(->
+		modifiedAllowedValuesArray = []
+		if @get('allowedValues') and @get('allowedValues').length > 0
+			i = 0
+			while i < @get('allowedValues').get('length')
+			  modifiedAllowedValuesArray.push 
+			  	'label':@get("allowedValues")[i].slice(4).replace("_", " "),
+			  	'value':@get('allowedValues')[i]
+			  i++ 
+		return modifiedAllowedValuesArray		
+	).property('allowedValues')
+	modifiedAllowedValuesMinSelection:(->
+		modifiedAllowedValues = @get('modifiedAllowedValues')
+		if modifiedAllowedValues and modifiedAllowedValues.length > 0
+			i = 0
+			while i < modifiedAllowedValues.length
+				if modifiedAllowedValues[i]['value'] is @get('min')
+					return modifiedAllowedValues[i]
+				i++
+	).property('modifiedAllowedValues','min')
+	modifiedAllowedValuesMaxSelection:(->
+		modifiedAllowedValues = @get('modifiedAllowedValues')
+		if modifiedAllowedValues and modifiedAllowedValues.length > 0
+			i = 0
+			while i < modifiedAllowedValues.length
+				if modifiedAllowedValues[i]['value'] is @get('max')
+					return modifiedAllowedValues[i]
+				i++
+	).property('modifiedAllowedValues','max')
 
 	lowerBound:(->
 		if typeof(@get('min')) is 'string'
@@ -143,13 +166,33 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 		if @get('propName')
 			@get('propName').replace('.','_')
 	).property('propName')
-	# modifiedAllowedValues:(->
-	# 	modifiedAllowedValuesArray = @get('allowedValues')
-	# 	if @get('allowedValues') and @get('allowedValues').length > 0
-	# 		i = 0
-	# 		while i < modifiedAllowedValuesArray.length
-	# 		  modifiedAllowedValuesArray[i] = modifiedAllowedValuesArray[i].slice(4)
-	# 		  i++ 
-	# 	return modifiedAllowedValuesArray		
-	# ).property('allowedValues')
+	modifiedAllowedValues:(->
+		modifiedAllowedValuesArray = []
+		if @get('allowedValues') and @get('allowedValues').length > 0
+			i = 0
+			while i < @get('allowedValues').get('length')
+			  modifiedAllowedValuesArray.push 
+			  	'label':@get("allowedValues")[i].slice(4).replace("_", " "),
+			  	'value':@get('allowedValues')[i]
+			  i++ 
+		return modifiedAllowedValuesArray		
+	).property('allowedValues')
+	modifiedAllowedValuesMinSelection:(->
+		modifiedAllowedValues = @get('modifiedAllowedValues')
+		if modifiedAllowedValues and modifiedAllowedValues.length > 0
+			i = 0
+			while i < modifiedAllowedValues.length
+				if modifiedAllowedValues[i]['value'] is @get('min')
+					return modifiedAllowedValues[i]
+				i++
+	).property('modifiedAllowedValues','min')
+	modifiedAllowedValuesMaxSelection:(->
+		modifiedAllowedValues = @get('modifiedAllowedValues')
+		if modifiedAllowedValues and modifiedAllowedValues.length > 0
+			i = 0
+			while i < modifiedAllowedValues.length
+				if modifiedAllowedValues[i]['value'] is @get('max')
+					return modifiedAllowedValues[i]
+				i++
+	).property('modifiedAllowedValues','max')
 

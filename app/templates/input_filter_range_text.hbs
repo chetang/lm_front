@@ -1,36 +1,39 @@
-<div class="row-fluid">
-  <div class="span3 pull-left" style="text-align:right">
-    {{view.propNameUnderscored}}
+<div class="row-fluid" style='float:left;width:50%;'>
+  <div class="span3 pull-left" style="display:none;">
+    {{view.propNameUnderscored}} :
   </div>
-  <div class="span9 pull-right">
+  <div class="span3 pull-left" style="text-align:right;width: 23%;float: left;word-wrap: break-word;margin-left:0;">
+    {{sliceAttr 'view' 'propName'}} :
+  </div>
+  <div class="span9 pull-right" style='width:74%;'>
     <div class="row-fluid">
     {{#if view.showDropDown}}
-      <div class="span6">
+      <div class="span4" style="margin-left:0;">
         <div class="control-group">
           <div class="controls">
-            {{view Ember.Select class="col-xs-3 item_filter from" contentBinding=view.allowedValues valueBinding=view.min}}
+            {{view Ember.Select class="item_filter from input-medium" contentBinding=view.modifiedAllowedValues optionValuePath=content.value optionLabelPath=content.label selectionBinding=view.modifiedAllowedValuesMinSelection}}
           </div>
         </div>
       </div>
-      <div class="span6">
+      <div class="span4" style="margin-right:48px;">
         <div class="control-group">
           <div class="controls">
-            {{view Ember.Select class="col-xs-3 item_filter to" contentBinding=view.allowedValues valueBinding=view.max}}
+            {{view Ember.Select class="item_filter to input-medium" contentBinding=view.modifiedAllowedValues selectionBinding=view.modifiedAllowedValuesMaxSelection optionValuePath=content.value optionLabelPath=content.label}}
           </div>
         </div>
       </div>
     {{else}}
-      <div class="span6">
+      <div class="span4" style="margin-left:0;">
         <div class="control-group">
           <div class="controls">
-            {{view Ember.TextField type="text" valueBinding=view.min class="col-xs-3 item_filter from"}}
+            {{view Ember.TextField type="text" style="width:136px;" valueBinding=view.min class="item_filter from input-medium"}}
           </div>
         </div>
       </div>
-      <div class="span6">
+      <div class="span4" style="margin-right:48px;">
         <div class="control-group">
           <div class="controls">
-            {{view Ember.TextField type="text" valueBinding=view.max class="col-xs-3 item_filter to" style="float:left;"}}
+            {{view Ember.TextField type="text" style="width:136px;" valueBinding=view.max class="item_filter to input-medium" style="float:left;"}}
           </div>
         </div>
       </div>
