@@ -5,38 +5,39 @@
 	  	<li class="ancestor_item_type" {{action updateBreadcrumb ancestor.id}} style="cursor:pointer;"><strong style='color: #369bd7;'> {{ancestor.prop_name}} </strong><i class="icon-chevron-right"></i></li>
 	  {{/each}}
   	<li class="active"><strong> {{controllers.index.currentItemType}} </strong></li>
-  	<li>
-  		<i class="icon-chevron-right"></i>
-	  <select id="item_type_children_breadCrumb" style='margin-bottom:0;'>
-	  	<option>Select an Item Type</option>
-		  {{#each children in childrens}}
-		  	<option {{bindAttr value=children.id}}>{{children.prop_name}}</option>
-		  {{/each}}
-	  </select>
-  	</li>
+  	{{#if childrens.length}}
+	  	<li>
+	  		<i class="icon-chevron-right"></i>
+	  		{{view Ember.Select contentBinding=childrens optionValuePath=content.id optionLabelPath=content.prop_name valueBinding=itemsCurrentItemType prompt='Select a Sub Categroy' class='no-bottom-margin'}}
+	  	</li>
+  	{{/if}}
   </ol>
 </div>
 {{#if mergedFilterAttrArray}}
-<br/>
-<br/>
-{{#each mergedFilterAttrArray}}
-	{{#if variable}}
-		{{#if slider}}
-			{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
-		{{else}}
-			{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+	<br/>
+	<br/>
+	{{#each mergedFilterAttrArray}}
+		{{#if variable}}
+			{{#if slider}}
+				{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
+			{{else}}
+				{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+			{{/if}}
 		{{/if}}
-	{{/if}}
-{{/each}}
-<br/>
-<br/>
+	{{/each}}
+	<br/>
+	<br/>
+	<div>
+		<div style='clear:both;margin-left:50px;float:left;margin-right:10px;margin-bottom: 20px;'>
+			<input class="item_filter_query_string" type="text" style="margin-bottom:0;" placeholder='Type your search text'/>
+		</div>
+		<div style='float:left;'>
+			<button {{action 'searchItems'}} type='submit' class="btn btn-primary">
+				<i class="icon-search icon-white"></i> Search Items
+			</button>
+		</div>
+	</div>
 {{/if}}
-<div>
-<div style='clear:both;margin-left:50px;float:left;margin-right:10px;margin-bottom: 20px;'><input class="item_filter_query_string" type="text" style="margin-bottom:0;" placeholder='Type your search text'/></div>
-<div style='float:left;'>
-	<button {{action 'searchItems'}} type='submit' class="btn btn-primary"><i class="icon-search icon-white"></i> Search Items</button>
-</div>
-</div>
 <!-- Item type ends here -->
 
 <h2 style="margin-left:50px;clear:both;">My Items <small> within {{controllers.index.currentItemType}}</small></h2>

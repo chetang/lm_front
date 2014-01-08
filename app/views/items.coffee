@@ -12,9 +12,6 @@ Liquidibles.ItemView = Ember.View.extend
 Liquidibles.ItemTypesView = Ember.View.extend
 	didInsertElement:->
 		console.log 'ItemTypes view rendered'
-		jQuery("#item_type_children_breadCrumb").change (eventObject) =>
-			if eventObject.target.selectedOptions[0].getAttribute('value')
-	  			@controller.updateBreadcrumb(eventObject.target.selectedOptions[0].getAttribute('value'))
 		
 Liquidibles.InputEnumFilterView = Ember.View.extend
 	templateName: 'input_enum_filter'

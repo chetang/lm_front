@@ -17,7 +17,7 @@ Ember.Handlebars.registerHelper "isSelected", (context, options) ->
 # Regular expression check for first 4 characters to be integer  
 Ember.Handlebars.registerHelper "extract", (attr, item, opts) ->
 	str = opts.data.keywords['item'].get('instance_attributes')[opts.data.keywords['attr']['prop_name']]
-	regex = /[0-9]{4}/
+	regex = /^[0-9]{4}/
 	if typeof (str) is "string" and str.match(regex)
 		return @controllerFor('index').toTitleCase(@controllerFor('index').slicedValues(str,regex).replace('_',' '))
 	else
