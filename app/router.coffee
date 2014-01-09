@@ -6,3 +6,7 @@ Liquidibles.Router.map ->
 	@resource 'item',
 		path: '/items/:item_id'
 	@resource "item_types"
+	@route "about"
+	@route "news"
+	@route "contact"
+	@route "developer"

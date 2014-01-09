@@ -1178,3 +1178,6 @@ body .ui-tooltip {
 .no-bottom-margin{
 	margin-bottom: 0;
 }
+.item_filter{
+	width: 68%;
+}

@@ -4,6 +4,7 @@ Liquidibles.IndexController = Ember.ObjectController.extend(
 	content: null
 	currentItemType: "all"
 	itemTypeUpdated: false
+	needs:['items']
 	filter_params:{'item_filter':{'from':{},'to':{}},'q':'','within_type':'all'}
 	currentItemTypeObserver:(->
 		currentFilter = @get('filter_params')
@@ -13,6 +14,9 @@ Liquidibles.IndexController = Ember.ObjectController.extend(
 	contentObserver:(->
 		if @content && @content.get('isLoaded')
 			@set "currentItemType", @content.objectAt(0).get('prop_name')
+			unless @controllerFor('items').get('itemType')
+				@controllerFor('items').set('itemType',@content)	
+			@content.objectAt(0).get('parent')
 	).observes('content.isLoaded')
 
 	slicedValues: (value,regex) ->

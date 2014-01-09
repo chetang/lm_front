@@ -1,5 +1,4 @@
 <!-- Item type starts here -->
-<div class="row" style="margin-left:30px;">
   <ol class="breadcrumb" style='background-color: white;'>
 	  {{#each ancestor in ancestors}}
 	  	<li class="ancestor_item_type" {{action updateBreadcrumb ancestor.id}} style="cursor:pointer;"><strong style='color: #369bd7;'> {{ancestor.prop_name}} </strong><i class="icon-chevron-right"></i></li>
@@ -8,30 +7,30 @@
   	{{#if childrens.length}}
 	  	<li>
 	  		<i class="icon-chevron-right"></i>
-	  		{{view Ember.Select contentBinding=childrens optionValuePath=content.id optionLabelPath=content.prop_name valueBinding=itemsCurrentItemType prompt='Select a Sub Categroy' class='no-bottom-margin'}}
+	  		{{view Ember.Select contentBinding=childrens optionValuePath=content.id optionLabelPath=content.prop_name valueBinding=itemsCurrentItemType prompt='Select a Sub Category' class='no-bottom-margin'}}
 	  	</li>
   	{{/if}}
   </ol>
-</div>
 {{#if mergedFilterAttrArray}}
 	<br/>
-	<br/>
-	{{#each mergedFilterAttrArray}}
-		{{#if variable}}
-			{{#if slider}}
-				{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
-			{{else}}
-				{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+	<fieldset style="border: 1px solid #369BD7;padding-bottom: 20px;">
+		<legend style='margin-left:2%;width:auto;border-bottom:0;'> Filters : </legend>
+		{{#each mergedFilterAttrArray}}
+			{{#if variable}}
+				{{#if slider}}
+					{{view Liquidibles.InputEnumFilterView propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name maxBinding=max minBinding=min}}
+				{{else}}
+					{{view Liquidibles.InputFilterRangeTextView maxBinding=max minBinding=min propNameBinding=prop_name floatBinding=float_precision allowedValuesBinding=allowed_values typeBinding=type itemTypePropNameBinding=item_type_prop_name}}
+				{{/if}}
 			{{/if}}
-		{{/if}}
-	{{/each}}
+		{{/each}}
+	</fieldset>
 	<br/>
-	<br/>
-	<div>
-		<div style='clear:both;margin-left:50px;float:left;margin-right:10px;margin-bottom: 20px;'>
+	<div style='padding:15px;'>
+		<div style='clear:both;float:left;margin-right:10px;'>
 			<input class="item_filter_query_string" type="text" style="margin-bottom:0;" placeholder='Type your search text'/>
 		</div>
-		<div style='float:left;'>
+		<div>
 			<button {{action 'searchItems'}} type='submit' class="btn btn-primary">
 				<i class="icon-search icon-white"></i> Search Items
 			</button>
@@ -40,8 +39,8 @@
 {{/if}}
 <!-- Item type ends here -->
 
-<h2 style="margin-left:50px;clear:both;">My Items <small> within {{controllers.index.currentItemType}}</small></h2>
-<table class="table table-bordered table-hovered span12">
+<h2>Search Results <small> within {{controllers.index.currentItemType}}</small></h2>
+<table class="table table-bordered table-hovered">
 	<tr>
 		<th>Serial</th>
 		<th>Name</th>
@@ -59,6 +58,3 @@
 		</tr>
 	{{/each}}
 </table>
-<div style="clear:both;margin-left:30px;">
-	{{#linkTo 'index' class="btn btn-success"}}<i class="icon-home icon-white"></i> Home{{/linkTo}} 
-</div>

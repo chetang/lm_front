@@ -39,6 +39,7 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 		  range: true
 		  min: @get('lowerBound')
 		  max: @get('upperBound')
+		  step: @get('floatPrecision')
 		  values: [@get('lowerBound'), @get('upperBound')]
 		  slide: (event, ui) =>
 		  	if @get('min') and typeof(@get('min')) is "string"
@@ -87,7 +88,12 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 					return modifiedAllowedValues[i]
 				i++
 	).property('modifiedAllowedValues','max')
-
+	floatPrecision:(->
+		if @get('type') is 'float'
+			return 0.01
+		else
+			return 1
+	).property('float')
 	lowerBound:(->
 		if typeof(@get('min')) is 'string'
 			parseInt(@get('min'))
@@ -114,29 +120,6 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 			@get('propName').slice(@get('propName').indexOf('.')+1)
 	).property('propName')
 
-	propNameUnderscored:(->
-		if @get('propName')
-			@get('propName').replace('.','_')
-	).property('propName')
-
-
-Liquidibles.InputFilterRangeSliderView = Ember.View.extend
-	templateName: 'input_filter_range_slider'
-	content: null
-	didInsertElement:->
-		console.log 'InputFilterRangeSliderView view rendered'
-
-	showDropDown:(->
-		if @get('type') is 'string' and @get('allowedValues')
-			return true
-		else
-			return false
-	).property('type','allowed_values','allowed_values.length')
-
-	propNameModified:(->
-		if @get('propName')
-			@get('propName').slice(@get('propName').indexOf('.')+1)
-	).property('propName')
 	propNameUnderscored:(->
 		if @get('propName')
 			@get('propName').replace('.','_')
@@ -192,4 +175,16 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 					return modifiedAllowedValues[i]
 				i++
 	).property('modifiedAllowedValues','max')
+	lowerBound:(->
+		if typeof(@get('min')) is 'string'
+			parseInt(@get('min'))
+		else
+			@get('min')
+	).property('min')
+	upperBound:(->
+		if typeof(@get('max')) is 'string'
+			parseInt(@get('max'))
+		else
+			@get('max')
+	).property('max')
 

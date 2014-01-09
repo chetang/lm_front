@@ -1,6 +1,6 @@
 Liquidibles.IndexView = Ember.View.extend
-	didInsertElement:->
-		console.log 'Index view rendered'
-
-	willDestroyElement:->
-		console.log 'Index view destroyed'
+	templateName: 'index'
+Liquidibles.FooterView = Ember.View.extend
+	templateName: 'footer'
+Liquidibles.HeaderView = Ember.View.extend
+	templateName: 'header'

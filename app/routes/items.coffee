@@ -9,6 +9,8 @@ Liquidibles.ItemsRoute = Ember.Route.extend(
       Liquidibles.store.findQuery(Liquidibles.Item,filter_params)
 
   setupController: (controller, item_type) ->
+    if controller.controllerFor('index').get('content') is null
+      controller.controllerFor('index').set('content',Liquidibles.store.findQuery(Liquidibles.ItemType,{current_item_type:true}))
     current_item_type = controller.controllerFor('index').currentItemType
     controller.set "itemType", Liquidibles.store.findQuery(Liquidibles.ItemType,{prop_name:current_item_type})
     controller.set "children", controller.get('itemType').get('children')
