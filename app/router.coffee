@@ -5,6 +5,15 @@ Liquidibles.Router.map ->
 	@resource "items"
 	@resource 'item',
 		path: '/items/:item_id'
+	@resource "wants"
+	@resource 'want',
+		path: '/wants/:want_id'
+	@resource "users"
+	@resource 'user',
+		path: '/users/:user_id'
+	@resource "accounts"
+	@resource 'account',
+		path: '/accounts/:account_id'
 	@resource "item_types"
 	@route "about"
 	@route "news"

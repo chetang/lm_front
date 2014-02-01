@@ -24,6 +24,7 @@ exports.config =
 					'vendor/scripts/ember-latest.js',
 					'vendor/scripts/ember-data-latest.js',
 					'vendor/scripts/bootstrap.js',
+					'vendor/scripts/bootstrap-multiselect.js',
 					'vendor/scripts/jquery.ui.core.js',
 					'vendor/scripts/jquery.ui.widget.js',
 					'vendor/scripts/jquery.ui.mouse.js',
@@ -38,6 +39,7 @@ exports.config =
 					'vendor/styles/jquery-ui.css'
 					'vendor/styles/chosen.css'
 					'vendor/styles/style.css'
+					'vendor/styles/bootstrap-multiselect.css'
 				]
 
 		templates:

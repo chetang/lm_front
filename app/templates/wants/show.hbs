@@ -1,0 +1,26 @@
+<h1> Want </h1>
+<div style="margin-left:50px;">
+	<dl class="dl-horizontal">
+		<dt>Title :</dt>
+		<dd>{{content.title}}</dd>
+		<dt>Account :</dt>
+		<dd>{{#linkTo 'account' content.account}}{{content.account.name}}{{/linkTo}}</dd>
+		<dt>Max Wanted :</dt>
+		<dd>{{content.max_wanted}}</dd>
+		<dt>State :</dt>
+		<dd>{{content.state}}</dd>
+		<dt>Budget :</dt>
+		<dd>{{content.budget}}</dd>
+		<dt>Created At :</dt>
+		<dd>{{content.created_at}}</dd>
+		<dt>Updated At :</dt>
+		<dd>{{content.updated_at}}</dd>
+	</dl>
+	<br/>
+	<br/>
+
+	<div style="clear:both;">
+		{{#linkTo 'index'}}Home{{/linkTo}} |
+		{{#linkTo 'wants' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> See All{{/linkTo}}
+	</div>
+</div>

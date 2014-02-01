@@ -1,7 +1,7 @@
 attr = DS.attr
 Liquidibles.Item = DS.Model.extend(
   name: attr('string')
-  account_id: attr('number')
+  account: DS.belongsTo("Liquidibles.Account")
   self_and_ancestors: attr('array')
   item_type_prop_name: attr('string')
   item_type_id: attr('number')

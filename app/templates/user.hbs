@@ -1,0 +1,28 @@
+<h1> User </h1>
+<div style="margin-left:50px;">
+	<dl class="dl-horizontal">
+		<dt>Name :</dt>
+		<dd>{{content.name}}</dd>
+		<dt>Account :</dt>
+		<dd>{{#linkTo 'account' content.account}}{{content.account.name}}{{/linkTo}}</dd>
+		<dt>Email :</dt>
+		<dd>{{content.email}}</dd>
+		<dt>Roles :</dt>
+		<dd>{{content.modifiedRoles}}</dd>
+		<dt>State :</dt>
+		<dd>{{content.state}}</dd>
+		<dt>Admin :</dt>
+		<dd>{{content.admin}}</dd>
+		<dt>Created At :</dt>
+		<dd>{{content.created_at}}</dd>
+		<dt>Updated At :</dt>
+		<dd>{{content.updated_at}}</dd>
+	</dl>
+	<br/>
+	<br/>
+
+	<div style="clear:both;">
+		{{#linkTo 'index'}}Home{{/linkTo}} |
+		{{#linkTo 'users' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> See All{{/linkTo}}
+	</div>
+</div>

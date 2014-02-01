@@ -6,6 +6,13 @@ Liquidibles.ItemsController = Ember.ArrayController.extend(
   mergedFilterAttrArray: []
   item_filter:{'from':{},'to':{}}
   itemsCurrentItemType: null
+  triggerSearch: 0
+  searchInProgress: false
+  contentObserver:(->
+    if @get('content') and @get('content.isLoaded')
+      @set('searchInProgress',false)
+      @set('triggerSearch',0)
+  ).observes('content','content.isLoaded')
   itemsCurrentItemTypeObserver:(->
     if @get('itemsCurrentItemType')
       @updateBreadcrumb(@get('itemsCurrentItemType'))
@@ -50,9 +57,15 @@ Liquidibles.ItemsController = Ember.ArrayController.extend(
       parent_tree.pushObject ancestor_hash
       @buildParentTree(item_type.get('parent'),parent_tree)
     else
-      return parent_tree.reverse() 
+      return parent_tree.reverse()
+
+  searchTriggerObserver: (->
+    if @get 'triggerSearch'
+      @searchItems()
+  ).observes('triggerSearch')
 
   searchItems: (params) ->
+    @set('searchInProgress',true)
     jQuery(jQuery(jQuery('.from')[0].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
     item_filter = @get 'item_filter'
     a = jQuery(".from").toArray()

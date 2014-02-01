@@ -3,7 +3,7 @@ Liquidibles.ItemsView = Ember.View.extend
 		console.log 'Items view rendered'
 		jQuery("#item_type_children_breadCrumb").change (eventObject) =>
 			if eventObject.target.selectedOptions[0].getAttribute('value')
-	  			@controller.updateBreadcrumb(eventObject.target.selectedOptions[0].getAttribute('value'))
+	  		@controller.updateBreadcrumb(eventObject.target.selectedOptions[0].getAttribute('value'))
 
 Liquidibles.ItemView = Ember.View.extend
 	didInsertElement:->
@@ -12,12 +12,12 @@ Liquidibles.ItemView = Ember.View.extend
 Liquidibles.ItemTypesView = Ember.View.extend
 	didInsertElement:->
 		console.log 'ItemTypes view rendered'
+		jQuery( "#format" ).buttonset()
 		
 Liquidibles.InputEnumFilterView = Ember.View.extend
 	templateName: 'input_enum_filter'
 	didInsertElement:->
 		jQuery('.slider_from').change ->
-			console.log('hi')
 			upper_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[1]
 			updated_lower_value = parseInt(event.target.value)
 			if upper_value >= updated_lower_value
@@ -25,8 +25,9 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 			else
 				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 0, upper_value)
 				jQuery(event.target).val(jQuery(event.target.parentElement.parentElement.parentElement.parentElement).find('.to').val())			
+			jQuery('.trigger_search_value').val(1)
+			jQuery('.trigger_search_value').focusout()
 		jQuery('.slider_to').change ->
-			console.log('hi')
 			lower_value = jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values")[0]
 			updated_upper_value = parseInt(event.target.value)
 			if updated_upper_value >= lower_value
@@ -34,30 +35,39 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 			else
 				jQuery(jQuery(event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[0]).find('.slider_input_tag')).slider("values", 1, lower_value)
 				jQuery(event.target).val(jQuery(event.target.parentElement.parentElement.parentElement.parentElement).find('.from').val())			
-
+			jQuery('.trigger_search_value').val(1)
+			jQuery('.trigger_search_value').focusout()
 		jQuery("#"+@get('propNameModified')).slider
 		  range: true
 		  min: @get('lowerBound')
 		  max: @get('upperBound')
 		  step: @get('floatPrecision')
 		  values: [@get('lowerBound'), @get('upperBound')]
-		  slide: (event, ui) =>
+		  stop: (event, ui) =>
 		  	if @get('min') and typeof(@get('min')) is "string"
 		  		if jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input').length > 0
 			  		jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input')[0]).val(ui.values[0])
 			  		jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input')[1]).val(ui.values[1])
 			  		console.log "From: " + ui.values[0] + " - To:" + ui.values[1] + "Min: " + @get("min")
+			  		jQuery('.trigger_search_value').val(1)
+			  		jQuery('.trigger_search_value').focusout()
 			  	else
 			  		jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[0]])
 			  		jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[1]).val(_this.get('allowedValues')[ui.values[1]])
 			  		console.log "From: " + ui.values[0] + " - To:" + ui.values[1] + "Min: " + @get("min")
+			  		jQuery('.trigger_search_value').val(1)
+			  		jQuery('.trigger_search_value').focusout()
 		  	else
 		  		if jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input').length > 0
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input')[0]).val(ui.values[0])
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('input')[1]).val(ui.values[1])
+		  			jQuery('.trigger_search_value').val(1)
+		  			jQuery('.trigger_search_value').focusout()
 		  		else
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[0]])
 		  			jQuery(jQuery(event.target.parentElement.parentElement.parentElement.children[1]).find('select')[0]).val(_this.get('allowedValues')[ui.values[1]])
+		  			jQuery('.trigger_search_value').val(1)
+		  			jQuery('.trigger_search_value').focusout()
 
 	modifiedAllowedValues:(->
 		modifiedAllowedValuesArray = []
@@ -130,6 +140,7 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 	templateName: 'input_filter_range_text'
 	didInsertElement:->
 		console.log 'InputFilterRangeTextView view rendered'
+		jQuery('.multiselectclass').multiselect()
 	
 	showDropDown:(->
 		if @get('type') is 'string' and @get('allowedValues')

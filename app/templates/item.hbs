@@ -2,11 +2,13 @@
 <div style="margin-left:50px;">
 	<h2>Name: {{content.name}}</h2>
 	<div class="pull-left text-right">
+		<div style="height:25px;"><strong>Account</strong>: </div>
 		{{#each item in key_arrays}}
 			<div style="height:25px;"><strong>{{item}}</strong>: </div>
 		{{/each}}
 	</div>
 	<div class="text-left" style="float:left;margin-left:10px;">
+		<div style="height:25px;">{{#linkTo 'account' content.account}}{{content.account.name}}{{/linkTo}}</div>
 		{{#each item in value_arrays}}
 			<div style="height:25px;">{{item}}</div>
 		{{/each}}
@@ -16,7 +18,7 @@
 
 	<div style="clear:both;">
 		{{#linkTo 'index'}}Home{{/linkTo}} |
-		{{#linkTo 'items' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> See All{{/linkTo}} |
+		{{#linkTo 'items' class="btn btn-info"}}<i class="icon-arrow-up icon-white"></i> See All{{/linkTo}}
 	</div>
 </div>
 <!-- Item ends here -->

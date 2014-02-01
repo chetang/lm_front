@@ -11,10 +11,19 @@
 	  	</li>
   	{{/if}}
   </ol>
+{{#if searchInProgress}}
+	<div class='overlay'>
+		<div style='margin-top:250px;width:58%;margin-left:auto;'>
+			<img class='loader_gif_class' src='/assets/ajax-loader.gif' />
+			Searching
+		</div>
+	</div>
+{{/if}}
 {{#if mergedFilterAttrArray}}
 	<br/>
 	<fieldset style="border: 1px solid #369BD7;padding-bottom: 20px;">
 		<legend style='margin-left:2%;width:auto;border-bottom:0;'> Filters : </legend>
+		{{view Ember.TextField type='hidden' class='trigger_search_value' valueBinding='triggerSearch' style='display:none;'}}
 		{{#each mergedFilterAttrArray}}
 			{{#if variable}}
 				{{#if slider}}
