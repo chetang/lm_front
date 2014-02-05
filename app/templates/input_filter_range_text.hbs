@@ -13,7 +13,7 @@
             {{#if view.showDropDown}}
               {{view Ember.Select class="item_filter input-medium multiselectclass discrete multiselect multiselect-all multiselect-search" contentBinding=view.modifiedAllowedValues optionValuePath=content.value optionLabelPath=content.label selectionBinding=view.modifiedAllowedValues multiple='true'}}
             {{else}}
-              {{view Ember.TextField type="text" class="item_filter input-medium discrete"}}
+              {{view Ember.TextField type="text" class="item_filter input-medium discrete filter_text_field"}}
             {{/if}}
           </div>
         </div>

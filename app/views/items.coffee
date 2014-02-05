@@ -142,9 +142,15 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 		jQuery('.multiselectclass').multiselect 
 			numberDisplayed: 4
 			enableCaseInsensitiveFiltering: true
-			onDropdownHide: (element) ->
-				console.log  "Hide drop down event invoked!"
+			onChange: (event, checked) ->
+		  		jQuery('.trigger_search_value').val(1)
+		  		jQuery('.trigger_search_value').focusout()
+				console.log  "Change event invoked!"
+		jQuery('.filter_text_field').change ->
+	  		jQuery('.trigger_search_value').val(1)
+	  		jQuery('.trigger_search_value').focusout()
 
+		
 	showDropDown:(->
 		if @get('type') is 'string' and @get('allowedValues')
 			return true
