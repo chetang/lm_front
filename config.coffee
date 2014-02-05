@@ -18,8 +18,6 @@ exports.config =
 			order:
 				before: [
 					'vendor/scripts/jquery-1.9.0.min.js',
-					'vendor/scripts/chosen.jquery.js',
-					'vendor/scripts/chosen.photo.js',
 					'vendor/scripts/handlebars-1.0.rc.2.js',
 					'vendor/scripts/ember-latest.js',
 					'vendor/scripts/ember-data-latest.js',
@@ -36,9 +34,8 @@ exports.config =
 			joinTo: 'stylesheets/app.css'
 			order:
 				before:[
+					'vendor/styles/app.css'
 					'vendor/styles/jquery-ui.css'
-					'vendor/styles/chosen.css'
-					'vendor/styles/style.css'
 					'vendor/styles/bootstrap-multiselect.css'
 				]
 
