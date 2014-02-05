@@ -4,7 +4,7 @@ Liquidibles.ItemsController = Ember.ArrayController.extend(
   needs: ['index']
   itemType: null 
   mergedFilterAttrArray: []
-  item_filter:{'from':{},'to':{}}
+  item_filter:{'from':{},'to':{}, 'discrete':{}}
   itemsCurrentItemType: null
   triggerSearch: 0
   searchInProgress: false
@@ -72,15 +72,19 @@ Liquidibles.ItemsController = Ember.ArrayController.extend(
     a.forEach (element) ->
       from_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
       item_filter["from"][from_filter_key.trim()] = jQuery(element).val()
-
     b = jQuery(".to").toArray()
     b.forEach (element) ->
       from_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
       item_filter["to"][from_filter_key.trim()] = jQuery(element).val()
+    c = jQuery(".discrete").toArray()
+    c.forEach (element) ->
+      discrete_filter_key = jQuery(jQuery(element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement).children()[0]).text()
+      item_filter["discrete"][discrete_filter_key.trim()] = jQuery(element).val()
+
     within_type = @controllerFor('index').get('currentItemType')
     query_string = jQuery('.item_filter_query_string').val()
     @controllerFor('index').set('filter_params',{'item_filter':item_filter,'within_type':within_type,'q':query_string})
-    @set('item_filter',{'from':{},'to':{}})
+    @set('item_filter',{'from':{},'to':{},'discrete':{}})
     @set('content',Liquidibles.store.findQuery(Liquidibles.Item,{'item_filter':item_filter,'within_type':within_type,'q':query_string}))
 
 )

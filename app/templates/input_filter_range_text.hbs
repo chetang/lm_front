@@ -7,37 +7,17 @@
   </div>
   <div class="pull-right" style='width:85%;margin-left:0;'>
     <div class="row-fluid" style='padding-left:5%;'>
-    {{#if view.showDropDown}}
       <div style="margin-left:0;width:45%;float:left;">
         <div class="control-group">
           <div class="controls">
-            {{view Ember.Select class="item_filter from input-medium multiselectclass" contentBinding=view.modifiedAllowedValues optionValuePath=content.value optionLabelPath=content.label selectionBinding=view.modifiedAllowedValuesMinSelection}}
+            {{#if view.showDropDown}}
+              {{view Ember.Select class="item_filter input-medium multiselectclass discrete multiselect multiselect-all multiselect-search" contentBinding=view.modifiedAllowedValues optionValuePath=content.value optionLabelPath=content.label selectionBinding=view.modifiedAllowedValues multiple='true'}}
+            {{else}}
+              {{view Ember.TextField type="text" class="item_filter input-medium discrete"}}
+            {{/if}}
           </div>
         </div>
       </div>
-      <div style="margin-left:10%;width:45%;float:left">
-        <div class="control-group">
-          <div class="controls">
-            {{view Ember.Select class="item_filter to input-medium" contentBinding=view.modifiedAllowedValues selectionBinding=view.modifiedAllowedValuesMaxSelection optionValuePath=content.value optionLabelPath=content.label}}
-          </div>
-        </div>
-      </div>
-    {{else}}
-      <div style="margin-left:0;width:45%;float:left;">
-        <div class="control-group">
-          <div class="controls">
-            {{view Ember.TextField type="text" valueBinding=view.min class="item_filter from input-medium"}}
-          </div>
-        </div>
-      </div>
-      <div style="margin-left:10%;width:45%;float:left">
-        <div class="control-group">
-          <div class="controls">
-            {{view Ember.TextField type="text" valueBinding=view.max class="item_filter to input-medium" style="float:left;"}}
-          </div>
-        </div>
-      </div>
-    {{/if}}
     </div>
   </div>
 </div>

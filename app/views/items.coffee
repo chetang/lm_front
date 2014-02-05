@@ -139,20 +139,18 @@ Liquidibles.InputEnumFilterView = Ember.View.extend
 Liquidibles.InputFilterRangeTextView = Ember.View.extend
 	templateName: 'input_filter_range_text'
 	didInsertElement:->
-		console.log 'InputFilterRangeTextView view rendered'
-		jQuery('.multiselectclass').multiselect()
-	
+		jQuery('.multiselectclass').multiselect 
+			numberDisplayed: 4
+			enableCaseInsensitiveFiltering: true
+			onDropdownHide: (element) ->
+				console.log  "Hide drop down event invoked!"
+
 	showDropDown:(->
 		if @get('type') is 'string' and @get('allowedValues')
 			return true
 		else
 			return false
 	).property('type','allowed_values','allowed_values.length')
-
-	propNameModified:(->
-		if @get('propName')
-			@get('propName').slice(@get('propName').indexOf('.')+1)
-	).property('propName')
 	propNameUnderscored:(->
 		if @get('propName')
 			@get('propName').replace('.','_')
@@ -177,25 +175,3 @@ Liquidibles.InputFilterRangeTextView = Ember.View.extend
 					return modifiedAllowedValues[i]
 				i++
 	).property('modifiedAllowedValues','min')
-	modifiedAllowedValuesMaxSelection:(->
-		modifiedAllowedValues = @get('modifiedAllowedValues')
-		if modifiedAllowedValues and modifiedAllowedValues.length > 0
-			i = 0
-			while i < modifiedAllowedValues.length
-				if modifiedAllowedValues[i]['value'] is @get('max')
-					return modifiedAllowedValues[i]
-				i++
-	).property('modifiedAllowedValues','max')
-	lowerBound:(->
-		if typeof(@get('min')) is 'string'
-			parseInt(@get('min'))
-		else
-			@get('min')
-	).property('min')
-	upperBound:(->
-		if typeof(@get('max')) is 'string'
-			parseInt(@get('max'))
-		else
-			@get('max')
-	).property('max')
-
