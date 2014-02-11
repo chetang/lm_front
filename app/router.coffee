@@ -14,6 +14,10 @@ Liquidibles.Router.map ->
 	@resource "accounts"
 	@resource 'account',
 		path: '/accounts/:account_id'
+	@route 'accountedit',
+		path: '/accounts/:account_id/edit'
+	@route 'accountnew',
+		path: '/accounts/new'
 	@resource "item_types"
 	@route "about"
 	@route "news"

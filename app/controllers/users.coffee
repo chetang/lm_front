@@ -14,6 +14,12 @@ Liquidibles.AccountsController = Ember.ArrayController.extend(
 Liquidibles.AccountController = Ember.ObjectController.extend(
   needs: ['index','items']
 )
+Liquidibles.AccountnewController = Ember.ObjectController.extend(
+  needs: ['index','items']
+)
+Liquidibles.AccounteditController = Ember.ObjectController.extend(
+  needs: ['index','items']
+)
 Liquidibles.WantsController = Ember.ArrayController.extend(
   needs: ['index','items']
   content: null

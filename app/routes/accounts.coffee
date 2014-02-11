@@ -18,3 +18,20 @@ Liquidibles.AccountRoute = Ember.Route.extend(
   setupController: (controller, account) ->
   	controller.set "content", Liquidibles.store.findById Liquidibles.Account,account.id
 )
+
+Liquidibles.AccountnewRoute = Ember.Route.extend(
+  model: ->
+    return Liquidibles.Account.createRecord()
+  setupController: (controller, model) ->
+    controller.set "content", model
+  exit: ->
+    @_super()
+    @get("currentModel.transaction").rollback()
+)
+Liquidibles.AccounteditRoute = Ember.Route.extend(
+  model: (account) ->
+    return Liquidibles.Account.find(account.account_id)
+
+  setupController: (controller, account) ->
+    controller.set "content", Liquidibles.store.findById Liquidibles.Account,account.id
+)

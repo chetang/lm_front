@@ -110,3 +110,24 @@ Liquidibles.ItemController = Ember.ObjectController.extend(
     return value_arrays
   ).property("content.isLoaded")
 )
+Liquidibles.ItemNewController = Ember.ObjectController.extend(
+  content: null
+  needs: ['index','items']
+  key_arrays: (->
+    attr_hash = @content.get("instance_attributes")
+    key_arrays = []
+    for item_attr of attr_hash
+      key_arrays.push @controllerFor('index').toTitleCase(item_attr.slice(item_attr.indexOf('.')+1).replace('_',' '))
+    return key_arrays
+  ).property("content.isLoaded")
+
+  value_arrays: (->
+    attr_hash = @content.get("instance_attributes")
+    value_arrays = []
+    regex = /^[0-9]{4}/
+    for item_attr of attr_hash
+      item_attr_value = attr_hash[item_attr]
+      value_arrays.push @controllerFor('index').toTitleCase(@controllerFor('index').slicedValues(item_attr_value,regex))
+    return value_arrays
+  ).property("content.isLoaded")
+)
